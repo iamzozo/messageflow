@@ -1,0 +1,12 @@
+h1,
+h2,
+h3 {
+        font-family: Aria, Helvetica, sans;
+        font-weight: bold;
+}
+body {
+        color: #3B5161;
+        font-family: Arial, Helvetica, sans;
+        font-size: 13px;
+        line-height: 1.5em;
+}
