@@ -5,11 +5,11 @@ $(function() {
 			return app.base_url + '?section=user&id=' + (this.get('id') ? this.get('id') : '')
 		},
 		defaults: {
-			'username' : '',
+			username : '',
 			profile_image : '',
-			'email' : '',
-			'first_name' : '',
-			'last_name' : ''
+			email : '',
+			first_name : '',
+			last_name : ''
 		}
 	});		
 	
@@ -334,7 +334,9 @@ $(function() {
 				toolbar:      "message-editor-toolbar",
 				parserRules:  wysihtml5ParserRules
 			});
-			$(_this.el).find('#fileholder').html('');
+			
+			if(this.model.isNew()) this.model.set('files', new Array());
+
 			_.each(this.model.get('files'), function(file) {
 				f = new FileModel(file);
 				f.set({
