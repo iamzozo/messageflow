@@ -22,7 +22,7 @@ Features
 Concept
 -------
 Few years ago, i was a big outlook fan. Please, continue reading :). 
-I liked the way i could hangle emails and tasks. The best function was to flag a message and set a duedate. 
+I liked the way i could handle emails and tasks. The best function was to flag a message and set a duedate. 
 So i don't have to copy text, go to tasks, or other task manager and paste is and so on.
 I realized i don't like creating tasks. I wanted to getting things done. A client send me some issues, i marked it, when it was done i sent a reply.
 It was quick and easy, but sometimes i lost in forwards and replies not to mention when there were 5 or more people on the project. 
