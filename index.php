@@ -255,7 +255,7 @@ if ( !is_user_logged_in() ) {
 
 		<script type="text/template" id="project-item">
 			<% if(meta.followup_count) { %><span class="followup-count badge"><%= meta.followup_count %></span><% } %>
-			<% if(unread > 0) { %><span class="unread-badge badge"><%= unread %></span><% } %>
+			<% if(unread > 0) { %><span class="unread-badge badge"><i class="fa fa-envelope"></i></span><% } %>
 			<span class="project-item">
 				<b><%= title %></b><br />
 				<span class="muted small"><%= moment(updated_on, "X").fromNow() %></span>

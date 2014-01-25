@@ -22,13 +22,15 @@ class Notification {
 				
 		if ( count( $users ) == 0 )
 			return;
-		
+				
 		foreach ( $users as $user ) {
 
 			if ( $user == get_current_user_id() )
 				continue;
 
 			$existing = get_user_meta( $user, 'notification', TRUE );
+			
+//			print_r($data);
 
 			if ( !$existing )
 				$existing = array( );
@@ -57,7 +59,7 @@ class Notification {
 		
 		$field = apply_filters('delete_notification_field', 'id');
 		$id = apply_filters('delete_notification_id', $data);
-		
+				
 		if( ! $id) {
 			return;
 		}		

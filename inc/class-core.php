@@ -296,6 +296,8 @@ class Core {
 				}
 			}
 			
+			$input['id'] = $id;
+			
 			do_action('after_save', $input);
 			
 			$_GET['id'] = $id;

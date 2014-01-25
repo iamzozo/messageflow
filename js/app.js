@@ -657,6 +657,7 @@ $(function() {
 				success: function() {
 					Messages.fetched = true;
 					Messages.project_id = currentProject;
+					Projects.get(currentProject).set('unread', 0);
 					App[callback]();
 				}
 			})

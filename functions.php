@@ -163,7 +163,7 @@ function add_author_to_project ( $input ) {
 
 add_filter( 'save_input', 'add_author_to_project' );
 
-//add_action( 'after_save', array( $mail, 'send_mail' ), 0, 2 );
+add_action( 'after_save', array( $mail, 'send_mail' ), 0, 2 );
 
 /**
  * Set field name for the lookup in notification array
@@ -189,6 +189,7 @@ function delete_notification_id ( $response ) {
 }
 
 add_filter( 'delete_notification_id', 'delete_notification_id' );
+
 
 /**
  * Setup recipients for mail notifications
@@ -247,3 +248,4 @@ function notification_users ( $data ) {
 add_filter( 'notification_users', 'notification_users' );
 
 add_action( 'after_save', array( $notification, 'set_notifications' ) );
+add_action( 'get_response_action', array( $notification, 'delete_notification' ) );
