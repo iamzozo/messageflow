@@ -60,7 +60,11 @@ $(function() {
 		}
 	})		
 	
-	Projects = new ProjectCollection();
+	var Projects = new ProjectCollection();
+	var projectsPoller = Backbone.Poller.get(Projects, {
+		delay: 10000,
+		delayed: true,
+	});	
 	
 	ProjectItemView = Backbone.Marionette.ItemView.extend({
 		tagName: 'li',
@@ -268,14 +272,18 @@ $(function() {
 			this.listenTo(this, 'change', Projects.setFollowup)
 		},		
 		url: function() {
-			return app.base_url + '?post_type=message&posts_per_page=-1'
+			return app.base_url + '?post_type=message&posts_per_page=-1&post_parent=' + currentProject
 		},
 		comparator: function(model) {
 			return model.get('id');
 		}		
 	})
 	
-	Messages = new MessageCollection();
+	var Messages = new MessageCollection();
+	var messagesPoller = Backbone.Poller.get(Messages, {
+		delay: 10000, 
+		delayed: true
+	});	
 	
 	MessageEmptyView = Backbone.Marionette.ItemView.extend({
 		template: '#messages-empty'
@@ -438,7 +446,7 @@ $(function() {
 	})
 	
 	EventsView = Backbone.Marionette.ItemView.extend({
-		template: _.template('<div></div>'),
+		template: '#event-view',
 		initialize: function() {			
 			this.listenTo(this.model, 'change create', this.render)
 		},
@@ -456,16 +464,18 @@ $(function() {
 			})
 
 			_this = this;
-			$(this.el).fullCalendar({
+			$(this.el).find('#calendar').fullCalendar({
 				events : _events,
 				editable: true,
 				firstDay: 0,
+				header: {
+					right: 'prev,next today'				
+				},
+				height: $(window).innerHeight() - 130,
 				eventDrop: function( e, d, minuteDelta, allDay, revertFunc, jsEvent, ui, view ) {
-					Messages.get(e.id).save({
-						meta : {
-							duedate : e.start
-						}
-					});
+					messagemeta = Messages.get(e.id).get('meta')
+					messagemeta.duedate = e.start;
+					Messages.get(e.id).save('meta', messagemeta);
 				},
 				eventRender: function (e, element) {
 					element.find('span.fc-event-title').text(e.title);
@@ -476,7 +486,7 @@ $(function() {
 					MessageModal.show();
 				}
 			});
-			$(document).trigger('resize');
+			$(document).trigger('resize');			
 		}
 	})
 	
@@ -580,13 +590,17 @@ $(function() {
 					p = Projects.get(currentProject)
 					
 				}
-				AppRouter.navigate('projects/' + p.id + '/messages', {trigger: true});
+				AppRouter.navigate('projects/' + p.id + '/messages', {
+					trigger: true
+				});
 				p.set('active', true);										
 				title = p.get('title')
 				$('#project-title').text(title);
 				$('a.add-new-message, .project-sections').show();
 			} else {				
-				AppRouter.navigate('/', {trigger: true});
+				AppRouter.navigate('/', {
+					trigger: true
+				});
 				$('a.add-new-message, .project-sections').hide();
 				$('#project-title').text('');
 				App.content.close();
@@ -657,8 +671,13 @@ $(function() {
 				success: function() {
 					Messages.fetched = true;
 					Messages.project_id = currentProject;
-					Projects.get(currentProject).set('unread', 0);
+					if(Projects.length > 0) {
+						Projects.get(currentProject).set('unread', 0);						
+					}
 					App[callback]();
+					if(app.polling == '1') {
+						messagesPoller.start();						
+					}
 				}
 			})
 		},
@@ -669,6 +688,9 @@ $(function() {
 					App.projects.show(new ProjectCollectionView({
 						collection: Projects
 					}));
+					if(app.polling == '1') {
+						projectsPoller.start();
+					}
 				}
 			})
 			return false;
@@ -730,4 +752,9 @@ $(function() {
 	
 	AppRouter = new Router();
 	Backbone.history.start();
+})
+
+$(window).on('load resize', function() {
+	h = $(window).innerHeight()-130;
+	$('#calendar').fullCalendar('option', 'height', h);
 })

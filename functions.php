@@ -57,7 +57,8 @@ function enqueue_scripts () {
 		wp_localize_script( 'app', 'app', array(
 		    'date_format' => get_option( 'date_format' ),
 		    'base_url' => esc_url( site_url( '/' ) ),
-		    'current_user' => get_current_user_id()
+		    'current_user' => get_current_user_id(),
+		    'polling' => defined('POLLING') ? POLLING : 1
 		) );
 	}
 }

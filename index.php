@@ -29,6 +29,7 @@ if ( !is_user_logged_in() ) {
 		<script type="text/javascript" src="<?php echo get_template_directory_uri() . '/js/libs/backbone.marionette.min.js' ?>"></script>
 		<script type="text/javascript" src="<?php echo get_template_directory_uri() . '/js/libs/bootstrap.min.js' ?>"></script>
 		<script type="text/javascript" src="<?php echo get_template_directory_uri() . '/js/libs/jquery.nicescroll.min.js' ?>"></script>
+		<script type="text/javascript" src="<?php echo get_template_directory_uri() . '/js/libs/backbone.poller.min.js' ?>"></script>
 		<link rel="stylesheet" href="<?php echo get_template_directory_uri() . '/css/bootstrap.min.css' ?>" />
 		<link rel="stylesheet" href="<?php echo get_template_directory_uri() . '/css/font-awesome.min.css' ?>" />
 		<link rel="stylesheet" href="<?php echo get_template_directory_uri() . '/css/normalize.css' ?>" />
@@ -299,6 +300,10 @@ if ( !is_user_logged_in() ) {
 				<h1>No messages</h1>
 				<p>Add one by clicking on the plus sign!</p>
 			</div>
+		</script>
+		
+		<script type="text/template" id="event-view">
+			<div id="calendar"></div>
 		</script>
 
 	</body>

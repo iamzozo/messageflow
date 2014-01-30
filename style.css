@@ -90,6 +90,9 @@ input:focus, textarea:focus {
 	position: fixed;
 	top: 55px;
 	bottom: 72px;
+	transition-duration: .3s;
+	-webkit-transition-duration: .3s;
+	-moz-transition-duration: .3s;
 }
 #sidebar-content a, #sidebar-content {
 	color: #FFF;
@@ -459,6 +462,10 @@ body.sidebar-closed #top {
 	border: 1px solid #E9ECEF;
 	vertical-align: top;
 }
+.fc-header-space {
+	display: inline-block;
+	width: 10px;
+}
 .fc-event {
 	border-radius: 3px;
 	padding: 0px 3px;
@@ -759,10 +766,12 @@ body.sidebar-closed #top {
 	background: #353552;
 }
 @media (max-width: 800px) {
-	#sidebar {
+	#sidebar, 
+	#sidebar-content {
 		left: -300px;
 	}
-	body.sidebar-opened #sidebar {
+	body.sidebar-opened #sidebar,
+	body.sidebar-opened #sidebar-content {
 		left: 0px;
 	}
 	body.sidebar-opened #top {
