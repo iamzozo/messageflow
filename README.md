@@ -19,6 +19,12 @@ Features
 * Set a date for messages
 * Mark as complete date flagged messages
 
+Settings
+--------
+###Polling
+Polling is automatic by default, so your projects and messages will be updated in every 10secs. You can take control if you add the following line in wp-config.php
+**define('POLLING', 0)**, where 0 means disabled.
+
 Concept
 -------
 Few years ago, i was a big outlook fan. Please, continue reading :). 
