@@ -191,10 +191,10 @@ class Core {
 			    'excerpt' => get_the_excerpt(),
 			    'content' => get_the_content(),
 			    'author' => array(
-				'id' => get_the_author_meta( 'ID' ),
-				'name' => get_the_author_meta( 'display_name' ),
-				'avatar' => get_avatar( get_the_author_meta( 'email' ) ),
-				'email' => get_the_author_meta( 'email' )
+                    'id' => get_the_author_meta( 'ID' ),
+                    'name' => get_the_author_meta( 'nicename' ),
+                    'avatar' => get_avatar( get_the_author_meta( 'email' ) ),
+                    'email' => get_the_author_meta( 'email' )
 			    ),
 			    'parent_id' => $post->post_parent,
 			    'meta' => $_metas,
@@ -297,7 +297,8 @@ class Core {
 			}
 			
 			$input['id'] = $id;
-			
+			$input['author'] = $data['post_author'];
+
 			do_action('after_save', $input);
 			
 			$_GET['id'] = $id;
